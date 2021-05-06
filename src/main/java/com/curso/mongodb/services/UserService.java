@@ -39,4 +39,13 @@ public class UserService {
 		this.userRepository.delete(user);
 	}
 	
+	@Transactional(propagation = Propagation.REQUIRED)
+	public User update(User obj) {
+		User userBanco = this.findById(obj.getId());
+		userBanco.setName(obj.getName());
+		userBanco.setEmail(obj.getEmail());
+		
+		return this.userRepository.save(userBanco);
+	}
+	
 }
