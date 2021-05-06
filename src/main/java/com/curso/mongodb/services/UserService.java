@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.curso.mongodb.domain.User;
 import com.curso.mongodb.repository.UserRepository;
@@ -24,6 +26,11 @@ public class UserService {
 				.orElseThrow(() -> new ObjectNotFoundException(String.format("Usuário do id: %s não encontrado.", id)));
 		
 		return user;
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRED)
+	public User insert(User obj) {
+		return userRepository.insert(obj);
 	}
 	
 }
