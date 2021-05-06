@@ -33,4 +33,10 @@ public class UserService {
 		return userRepository.insert(obj);
 	}
 	
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void delete(String id) {
+		User user = findById(id);		
+		this.userRepository.delete(user);
+	}
+	
 }
