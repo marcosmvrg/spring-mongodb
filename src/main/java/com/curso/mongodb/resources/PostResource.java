@@ -1,5 +1,6 @@
 package com.curso.mongodb.resources;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,19 @@ public class PostResource {
 		text = UrlUtil.decodeParam(text);
 		
 		return ResponseEntity.ok().body(postService.findByTitle(text));
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/fullsearch")
+	public ResponseEntity<List<Post>> fullSearch(
+			@RequestParam(value="text", defaultValue = "") String text,
+			@RequestParam(value="minDate", defaultValue = "") String minDate,
+			@RequestParam(value="maxDate", defaultValue = "") String maxDate) {
+
+		text = UrlUtil.decodeParam(text);
+		Date initialDate = UrlUtil.decodeParam(minDate, new Date(0L));
+		Date finalDate = UrlUtil.decodeParam(maxDate, new Date());
+		
+		return ResponseEntity.ok().body(postService.fullSearch(text, initialDate, finalDate));
 	}
 
 }
