@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import com.curso.mongodb.dto.AuthorDTO;
 import com.curso.mongodb.dto.CommentDTO;
 
-@Document(collation = "post")
+@Document(collection = "post")
 public class Post implements Serializable {
 
 	private static final long serialVersionUID = 1L;
